@@ -34,5 +34,5 @@ class ListingService(models.Model):
         )
 
 class UserListing(models.Model):
-    user = models.ForeignKey(plants_customuser, on_delete=models.PROTECT)
-    listing = modelf.ForeignKey(Listing, on_delete=models.PROTECT)
+    user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
+    listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
