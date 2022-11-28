@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
@@ -19,6 +19,7 @@ class Listing(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     updated_date = models.DateTimeField(auto_now=True, null=True)
     service = models.ManyToManyField(Service, through='ListingService', related_name="listing_list")
+    status = models.PositiveSmallIntegerField(null=False, default=1, validators=[MinValueValidator(0), MaxValueValidator(4)])
     
     def __str__(self):
         return self.name
@@ -31,3 +32,7 @@ class ListingService(models.Model):
         unique_together = (
             ['listing', 'service']
         )
+
+class UserListing(models.Model):
+    user = models.ForeignKey(plants_customuser, on_delete=models.PROTECT)
+    listing = modelf.ForeignKey(Listing, on_delete=models.PROTECT)
