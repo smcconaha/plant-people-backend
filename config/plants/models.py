@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
 
 class Service(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, unique=True)
-    description = models.CharField(max_length=255, null=False, blank=False, unique=True)
+    description = models.CharField(max_length=255, null=True, blank=True, unique=False)
 
     def __str__(self):
         return self.name
