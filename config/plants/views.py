@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 # Create your views here.
-class ServiceSerializer(ModelViewSet):
+class ServiceViewSet(ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
 
