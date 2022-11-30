@@ -5,4 +5,4 @@ from pprint import pprint
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ('name', 'description',)
+        fields = ("__all__")

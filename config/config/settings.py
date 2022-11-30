@@ -29,10 +29,12 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "plants.CustomUser"
 
-CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.gitpod\.io$",
-]
+CORS_ALLOW_ALL_ORIGINS=True
+
+# CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
+# CORS_ALLOWED_ORIGIN_REGEXES = [
+#     r"^https://.*\.gitpod\.io$",
+# ]
 
 # Application definition
 
