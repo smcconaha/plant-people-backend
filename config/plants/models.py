@@ -8,10 +8,20 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+    extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
 class Service(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, unique=True)
     description = models.CharField(max_length=255, null=True, blank=True, unique=False)
-
+    
     def __str__(self):
         return self.name
 
