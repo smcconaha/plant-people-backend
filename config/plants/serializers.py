@@ -25,10 +25,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         required=True
     )
     username = serializers.CharField()
+    birthday = serializers.DateField(required=False)
     password = serializers.CharField(min_length=8, write_only=True)
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    birthday = serializers.DateField()
 
     class Meta:
         model = CustomUser
