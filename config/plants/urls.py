@@ -5,6 +5,9 @@ from rest_framework_simplejwt import views as jwt_views
 
 router = routers.SimpleRouter()
 router.register(r'services', ServiceViewSet)
+router.register(r'listings', ServiceViewSet)
+router.register(r'reviews', ServiceViewSet)
+router.register(r'images', ServiceViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
