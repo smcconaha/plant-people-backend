@@ -33,7 +33,7 @@ class Review(models.Model):
 
 class Image(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False, unique=True)
-    profile_image = models.ImageField()
+    profile_image = models.URLField()
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
