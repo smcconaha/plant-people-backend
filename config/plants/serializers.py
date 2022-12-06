@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import *
+from .fields import *
 from pprint import pprint
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -8,20 +9,21 @@ class ServiceSerializer(serializers.ModelSerializer):
         model = Service
         fields = ("__all__")
 
-class ListingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Listing
-        fields = ("__all__")
-
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ("__all__")
+        fields = ("id", "rating", "title", "body", "created_date")
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ("__all__")
+        fields = ("id", "title", "profile_image")
+
+class ListingSerializer(serializers.ModelSerializer):
+    service = ServiceListingField(many=True, queryset=Service.objects.all(), required=True)
+    class Meta:
+        model = Listing
+        fields = ["id", "body", "service", "address_line_one", "address_line_two", "city", "state", "zip_code", "country", "status"]
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

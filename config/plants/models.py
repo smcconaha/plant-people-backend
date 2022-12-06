@@ -12,11 +12,27 @@ class Service(models.Model):
         return self.name
 
 class Listing(models.Model):
+    Invisible = 0
+    Draft = 1
+    Published = 2
+    Promoted = 3
+    STATUS_CHOICES = [
+        (Invisible, 0),
+        (Draft, 1),
+        (Published, 2),
+        (Promoted, 3)
+    ]
     body = models.CharField(max_length=1000, null=False, blank=False, unique=False)
-    created_date = models.DateTimeField(auto_now_add=True, null=True)
-    updated_date = models.DateTimeField(auto_now=True, null=True)
-    service = models.ManyToManyField(Service, through='ListingService', related_name="listing_list")
-    status = models.PositiveSmallIntegerField(null=False, default=1, validators=[MinValueValidator(0), MaxValueValidator(4)])
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    service = models.ManyToManyField(Service, through='ListingService', related_name="listings")
+    address_line_one = models.CharField(max_length=100, null=True, blank=False)
+    address_line_two = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=85, null=True, blank=False)
+    state = models.CharField(max_length=85, null=True, blank=False)
+    zip_code = models.PositiveIntegerField(null=True, validators=[MinValueValidator(501), MaxValueValidator(99950)])
+    country = models.CharField(max_length=60, null=False, default="US", blank=False)
+    status = models.PositiveSmallIntegerField(null=False, choices=STATUS_CHOICES, validators=[MinValueValidator(0), MaxValueValidator(4)])
     
     def __str__(self):
         return self.name
@@ -25,14 +41,14 @@ class Review(models.Model):
     rating = models.PositiveSmallIntegerField(null=False, default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     title = models.CharField(max_length=50, null=False, blank=False, unique=True)
     body = models.CharField(max_length=1000, null=False, blank=False, unique=False)
-    updated_date = models.DateTimeField(auto_now=True, null=True)
-    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.name
 
 class Image(models.Model):
-    title = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    title = models.CharField(max_length=50, null=True, blank=False, unique=True)
     profile_image = models.URLField()
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     
