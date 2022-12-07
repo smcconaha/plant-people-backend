@@ -6,8 +6,9 @@ from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework import status, permissions, generics
+from rest_framework import status, permissions, generics, filters
 from rest_framework.decorators import action, api_view
+from rest_framework.permissions import SAFE_METHODS, AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, IsAdminUser
 
 # Create your views here.
 
@@ -36,9 +37,43 @@ from rest_framework.decorators import action, api_view
 #         listing.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# class ListingList(generics.ListAPIView):
+#     permission_classes = [AllowAny]
+#     serializer_class = ListingSerializer 
+
+#     #custom queryset, overriding basic functionality
+#     def get_queryset(self):
+#         return Listing.objects.filter(city="Georgetown")
+#     #only post that are in Georgetown
+
+# class PkList(generics.ListAPIView):
+#     permission_classes = [AllowAny]
+#     serializer_class = ListingSerializer 
+    # def get_queryset(self):
+    #     """
+    #     Filtering against the URL (ID)
+    #     Get post based on title / string
+    #     """
+    #     slug = self.kwargs['pk']
+    #     print(slug)
+    #     return Listing.objects.filter(id=slug)
+
+class SearchDetail(generics.ListAPIView):
+    queryset = Listing.objects.all()
+    serializer_class = ListingSerializer
+    filter_backends = [filters.SearchFilter] #extends filter with searchfilter, use end point and ? to take in diff params and run filter
+    search_fields = ['=zip_code']
+
+
+
+
 class ServiceViewSet(ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+
+class AllListingViewSet(ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ViewAllListSerializer
 
 class ListingViewSet(ModelViewSet):
     queryset = Listing.objects.all()

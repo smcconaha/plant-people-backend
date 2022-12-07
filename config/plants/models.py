@@ -33,9 +33,6 @@ class Listing(models.Model):
     zip_code = models.PositiveIntegerField(null=True, validators=[MinValueValidator(501), MaxValueValidator(99950)])
     country = models.CharField(max_length=60, null=False, default="US", blank=False)
     status = models.PositiveSmallIntegerField(null=False, choices=STATUS_CHOICES, validators=[MinValueValidator(0), MaxValueValidator(4)])
-    
-    def __str__(self):
-        return self.name
 
 class Review(models.Model):
     rating = models.PositiveSmallIntegerField(null=False, default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
@@ -45,15 +42,12 @@ class Review(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return self.title
 
 class Image(models.Model):
     title = models.CharField(max_length=50, null=True, blank=False, unique=True)
     profile_image = models.URLField()
-    created_date = models.DateTimeField(auto_now_add=True, null=True)
-    
-    def __str__(self):
-        return self.name
+    created_date = models.DateTimeField(auto_now_add=True)
 
 class ListingService(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
@@ -87,18 +81,16 @@ class UserListing(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.name
+        return self.user
 
 class UserImage(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
 
 class UserReview(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     review= models.ForeignKey(Review, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.user
