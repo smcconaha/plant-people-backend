@@ -72,7 +72,7 @@ class ServiceViewSet(ModelViewSet):
     serializer_class = ServiceSerializer
 
 class AllListingViewSet(ModelViewSet):
-    queryset = Service.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = ViewAllListSerializer
 
 class ListingViewSet(ModelViewSet):

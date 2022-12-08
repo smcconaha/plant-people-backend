@@ -89,28 +89,10 @@ class UserLookupSerializer(serializers.ModelSerializer):
         model = Image
         fields = ("first_name",)
 
-# class ListingListSerializer(serializers.ModelSerializer):
-#     service = ServiceLookupSerializer(many=True)
-#     user = UserLookupSerializer(many=True)
-#     image = ImageLookupSerializer(many=True)
-#     class Meta:
-#         model = CustomUser
-#         fields = (
-#             "id",
-#             "image",
-#             "user",
-#             "body",
-#             "service",
-#             "city",
-#             "state",
-#             "zip_code",
-#             "status",
-#         )
-
 class ViewAllListSerializer(serializers.ModelSerializer):
-    listing = AllListingSerializer(many=True)
-    image = ImageLookupSerializer(many=True)
-    review = ReviewSerializer(many=True)
+    listings = AllListingSerializer(many=True)
+    images = ImageLookupSerializer(many=True)
+    reviews = ReviewSerializer(many=True)
     class Meta:
         model = CustomUser
-        fields = ("first_name", "username", "listing", "image", "review",)
+        fields = ("first_name", "username", "listings", "images", "reviews",)
