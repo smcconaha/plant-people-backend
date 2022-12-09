@@ -70,11 +70,11 @@ class UserLookupSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ("id", "first_name", "listings", "images", "reviews",)
-
-    class Meta:
-        model = CustomUser
-        fields = ('email', 'username', 'password', 'first_name', 'last_name', 'birthday',)
         extra_kwargs = {'password': {'write_only': True}}
+
+    # class Meta:
+    #     model = CustomUser
+    #     fields = ('email', 'username', 'password', 'first_name', 'last_name', 'birthday',)
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -84,10 +84,10 @@ class UserLookupSerializer(serializers.ModelSerializer):
         instance.save()
         return instance    
 
-class UserLookupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ("first_name",)
+# class UserLookupSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Image
+#         fields = ("first_name",)
 
 class ViewAllListSerializer(serializers.ModelSerializer):
     listings = AllListingSerializer(many=True)
