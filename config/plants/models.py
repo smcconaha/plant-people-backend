@@ -8,8 +8,8 @@ class Service(models.Model):
     service_type = models.CharField(max_length=50, null=False, blank=True, unique=False)
     description = models.CharField(max_length=255, null=True, blank=True, unique=False)
     
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Listing(models.Model):
     Invisible = 0
@@ -22,6 +22,7 @@ class Listing(models.Model):
         (Published, 2),
         (Promoted, 3)
     ]
+    heading = models.CharField(max_length=50, default="Certified Caregiver", null=False, blank=False, unique=False)
     body = models.CharField(max_length=1000, null=False, blank=False, unique=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -41,8 +42,8 @@ class Review(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 class Image(models.Model):
     title = models.CharField(max_length=50, null=True, blank=False, unique=True)
@@ -63,8 +64,7 @@ class CustomUser(AbstractUser):
     listings = models.ManyToManyField(Listing, through='UserListing', related_name="userlist_list")
     images = models.ManyToManyField(Image, through='UserImage', related_name="userimg_list")
     reviews = models.ManyToManyField(Review, through='UserReview', related_name="userrev_list")
-    def __str__(self):
-        return self.username
+
 
     extra_kwargs = {'password': {'write_only': True}}
 
@@ -80,8 +80,8 @@ class UserListing(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     listing = models.ForeignKey(Listing, on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+    #     return self.user
 
 class UserImage(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
@@ -92,5 +92,5 @@ class UserReview(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     review= models.ForeignKey(Review, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+    #     return self.user

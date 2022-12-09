@@ -39,7 +39,7 @@ class AllListingSerializer(serializers.ModelSerializer):
     service = ServiceListingField(many=True, queryset=Service.objects.all(), required=True)
     class Meta:
         model = Listing
-        fields = ("id", "body", "service", "city", "state", "zip_code", "status",)
+        fields = ("id", "heading", "body", "service", "city", "state", "zip_code", "status",)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
