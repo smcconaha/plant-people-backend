@@ -64,9 +64,6 @@ class SearchDetail(generics.ListAPIView):
     filter_backends = [filters.SearchFilter] #extends filter with searchfilter, use end point and ? to take in diff params and run filter
     search_fields = ['=zip_code']
 
-
-
-
 class ServiceViewSet(ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
