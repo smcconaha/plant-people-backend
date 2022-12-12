@@ -77,6 +77,9 @@ class CustomUser(AbstractUser):
         instance.save()
         return instance
 
+    def __str__(self):
+        return f"{self.username}: {self.first_name} {self.last_name}"
+
 class UserListing(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     listing = models.ForeignKey(Listing, on_delete=models.PROTECT)

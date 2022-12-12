@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    "DATE_INPUT_FORMATS": ["%m-%d-%Y"],
+    # "DATE_INPUT_FORMATS": ["%m-%d-%Y"],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
